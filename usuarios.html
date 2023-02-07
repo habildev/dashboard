@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-auth.js"></script>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: lightgray;
+      }
+    </style>
+  </head>
+  <body>
+    <table id="users-table">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>UID</th>
+        </tr>
+      </thead>
+      <tbody id="users-body"></tbody>
+    </table>
+    <script>
+      // Inicializar o Firebase
+      var firebaseConfig = {
+        apiKey: "AIzaSyCjJsttDrUp6i3X1OzyN9aZC5TDAMSg2Uw",
+        authDomain: "dashboard-projeto-c760f.firebaseapp.com",
+        databaseURL: "https://dashboard-projeto-c760f-default-rtdb.firebaseio.com/",
+        projectId: "dashboard-projeto-c760f",
+        storageBucket: "dashboard-projeto-c760f.appspot.com",
+        messagingSenderId: "311383376509",
+        appId: "1:311383376509:web:0141be655b8131c79ce714"
+      };
+      firebase.initializeApp(firebaseConfig);
+
+      // Obter a lista de usuários autenticados
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          // Acessar a lista de usuários
+          firebase.auth().listUsers().then(function(result) {
+            result.users.forEach(function(user) {
+              // Adicionar os dados a tabela
+              var tableBody = document.getElementById("users-body");
+              var tr = document.createElement("tr");
+              var emailTd = document.createElement("td");
+              emailTd.textContent = user.email;
+              var uidTd = document.createElement("td");
+              uidTd.textContent = user.uid;
+              tr.appendChild(emailTd);
+              tr.appendChild(uidTd);
+              tableBody.appendChild(tr);
+            });
+          });
+        } else {
+          // Usuário não está autenticado
+        }
+      });
+    </script>
+    
+    <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyCjJsttDrUp6i3X1OzyN9aZC5TDAMSg2Uw",
+    authDomain: "dashboard-projeto-c760f.firebaseapp.com",
+    projectId: "dashboard-projeto-c760f",
+    storageBucket: "dashboard-projeto-c760f.appspot.com",
+    messagingSenderId: "311383376509",
+    appId: "1:311383376509:web:0141be655b8131c79ce714",
+    measurementId: "G-VESRY9M5HB"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+ </body
+ </html>
