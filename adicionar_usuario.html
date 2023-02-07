@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Dashboard de Usuários</title>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-auth.js"></script>
+  </head>
+  <body>
+    <!-- Add User Form -->
+    <form id="add-user-form">
+      <h1>Adicionar Usuário</h1>
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+      </div>
+      <div>
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password">
+      </div>
+      <button type="submit">Adicionar</button>
+    </form>
+    <!-- Message -->
+    <div id="message"></div>
+    
+    <!-- CSS -->
+    <style>
+      form {
+        width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      div {
+        margin-bottom: 20px;
+      }
+      label {
+        display: inline-block;
+        width: 100px;
+        text-align: right;
+        padding-right: 10px;
+      }
+      input[type="email"], input[type="password"] {
+        width: 300px;
+        padding: 10px;
+        font-size: 16px;
+      }
+      button[type="submit"] {
+        width: 100px;
+        padding: 10px;
+        font-size: 16px;
+        margin-left: 210px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+    
+    <!-- JavaScript -->
+    <script>
+      // Initialize Firebase
+      var firebaseConfig = {
+        apiKey: "AIzaSyCjJsttDrUp6i3X1OzyN9aZC5TDAMSg2Uw",
+        authDomain: "dashboard-projeto-c760f.firebaseapp.com",
+        databaseURL: "https://dashboard-projeto-c760f-default-rtdb.firebaseio.com/",
+        projectId: "dashboard-projeto-c760f",
+        storageBucket: "dashboard-projeto-c760f.appspot.com",
+        messagingSenderId: "311383376509",
+        appId: "1:311383376509:web:0141be655b8131c79ce714"
+      };
+      
+      firebase.initializeApp(firebaseConfig);
+      
+      // Get form reference
+      var form = document.getElementById("add-user-form");
+      
+      // Get message element reference
+      var message = document.getElementById("message");
+        // Add submit event listener to form
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    
+    // Get email and password values
+    var email = form.elements.email.value;
+    var password = form.elements.password.value;
+    
+    // Create user with email and password
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(function() {
+        message.innerHTML = "Usuário adicionado com sucesso!";
+        
+      })
+      .catch(function(error) {
+        message.innerHTML = "Erro ao adicionar usuário: " + error.message;
+      });
+  });
+</script>
+</body>
+</html>
+
+
